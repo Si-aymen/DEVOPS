@@ -1,32 +1,41 @@
 pipeline {
-    agent any
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                // Add  build steps 
-            }
-        }
+agent any
 
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                // Add test steps 
-            }
-        }
 
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                // Add  deploy steps 
-            }
-        }
+stages {
+
+stage('GIT') {
+
+           steps {
+
+               git branch: 'master',
+
+               url: 'https://github.com/Si-aymen/DEVOPS'
+
+          }
+
+     }
+
+stage ('Compile Stage') {
+
+    steps {
+
+        sh 'mvn clean compile'
+
     }
 
-    post {
-        always {
-            echo 'Pipeline finished!'
-        }
+}
+stage ('SonarQube') {
+
+    steps {
+
+        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Aymenrahali@6631* -Dmaven.test.skip=true';
+
     }
+
+}
+
+}
+
 }
