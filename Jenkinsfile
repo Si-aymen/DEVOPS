@@ -30,7 +30,7 @@ stage ('SonarQube') {
 
     steps {
 
-        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Aymenrahali@6631* -Dmaven.test.skip=true';
+        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Aymenrahali@6631 -Dmaven.test.skip=true';
 
     }
 
