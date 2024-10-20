@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME' // Ensure that 'M2_HOME' matches the Maven installation name in Jenkins
+        maven 'M2_HOME' // Ensure 'M2_HOME' matches the Maven installation name in Jenkins
     }
 
     stages {
@@ -29,14 +29,14 @@ pipeline {
 
         stage('Nexus') {
             steps {
-                // Deploying artifacts to Nexus
+                // Deploying artifacts to Nexus using credentials from Jenkins
                 withCredentials([usernamePassword(credentialsId: 'nexus-credentials-id', 
-                                  usernameVariable: 'admin', 
-                                  passwordVariable: 'Omen15@6631')]) {
+                                  usernameVariable: 'USERNAME', 
+                                  passwordVariable: 'PASSWORD')]) {
                     sh """
                     mvn deploy -DskipTests \
-                        -Dnexus.username=${admin} \
-                        -Dnexus.password='${Omen15@6631}'
+                        -Dnexus.username='admin' \
+                        -Dnexus.password='Omen15@6631'
                     """
                 }
             }
