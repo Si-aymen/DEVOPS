@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME' // Ensure 'M2_HOME' is set up in Jenkins Global Tool Configuration
+        maven 'M2_HOME' // Make sure this matches the name of the Maven installation in Jenkins
     }
 
     stages {
@@ -14,17 +14,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                script {
-                    // Running Maven build
-                    sh 'mvn clean install'
-                }
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
             }
         }
     }
 
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Build and tests succeeded!'
         }
         failure {
             echo 'Build failed. Please check the logs.'
