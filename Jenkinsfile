@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('GIT') {
             steps {
-                git branch: 'main',  
+                git branch: 'master',  
                     url: 'https://github.com/Si-aymen/DEVOPS.git'
             }
         }
