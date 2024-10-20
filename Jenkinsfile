@@ -2,32 +2,45 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME' // Make sure this matches the name of the Maven installation in Jenkins
+        maven 'M2_HOME' // Ensure that 'M2_HOME' matches the Maven installation name in Jenkins
     }
 
     stages {
         stage('Checkout') {
             steps {
+                // Cloning the Git repository from the master branch
                 git branch: 'master', url: 'https://github.com/Si-aymen/DEVOPS.git'
             }
         }
 
         stage('Build') {
             steps {
+                // Running the Maven build
                 sh 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
+                // Running Maven tests
                 sh 'mvn test'
             }
         }
-        stage ('Nexus'){
+
+        stage('Nexus') {
             steps {
-                 sh 'mvn deploy';
-             }
-         }
+                // Deploying artifacts to Nexus
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials-id', 
+                                  usernameVariable: 'admin', 
+                                  passwordVariable: 'Omen15@6631')]) {
+                    sh """
+                    mvn deploy -DskipTests \
+                        -Dnexus.username=${admin} \
+                        -Dnexus.password=${Omen15@6631}
+                    """
+                }
+            }
+        }
     }
 
     post {
