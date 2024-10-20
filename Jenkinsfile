@@ -29,11 +29,12 @@ pipeline {
 
         stage('Nexus') {
             steps {
-                // Deploying artifacts to Nexus with hardcoded credentials
+                // Deploying artifacts to Nexus with direct credentials
                 sh """
-                mvn deploy -DskipTests \
-                    -Dnexus.username=admin \
-                    -Dnexus.password='Omen15@6631'
+                    mvn deploy -DskipTests \
+                        -DaltDeploymentRepository=nexus::default::http://<NEXUS_URL>/repository/maven-releases/ \
+                        -Dnexus.username=admin \
+                        -Dnexus.password='Omen15@6631'
                 """
             }
         }
