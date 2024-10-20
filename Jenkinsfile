@@ -27,17 +27,11 @@ pipeline {
             }
         }
 
-        stage('Nexus') {
-            steps {
-                // Deploying artifacts to Nexus
-                sh """
-                    mvn deploy -DskipTests \
-                        -DaltDeploymentRepository=nexus::default::http://192.168.33.10:8081/repository/maven-releases/ \
-                        -Dnexus.username=admin \
-                        -Dnexus.password='Omen15@6631'
-                """
-            }
-        }
+ stage ('Nexus'){
+     steps {
+         sh 'mvn deploy';
+     }
+ }
     }
 
     post {
