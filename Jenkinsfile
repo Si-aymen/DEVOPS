@@ -36,7 +36,7 @@ pipeline {
                     sh """
                     mvn deploy -DskipTests \
                         -Dnexus.username=${admin} \
-                        -Dnexus.password=${Omen15@6631}
+                        -Dnexus.password='${Omen15@6631}'
                     """
                 }
             }
