@@ -1,18 +1,33 @@
 pipeline {
     agent any
+
     tools {
-        maven 'M2_HOME'      }
+        maven 'M2_HOME' // Ensure 'M2_HOME' is set up in Jenkins Global Tool Configuration
+    }
+
     stages {
-        stage('GIT') {
+        stage('Checkout') {
             steps {
-                git branch: 'master',  
-                    url: 'https://github.com/Si-aymen/DEVOPS.git'
+                git branch: 'master', url: 'https://github.com/Si-aymen/DEVOPS.git'
             }
         }
+
         stage('Build') {
             steps {
-                sh 'mvn clean install'  
+                script {
+                    // Running Maven build
+                    sh 'mvn clean install'
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully!'
+        }
+        failure {
+            echo 'Build failed. Please check the logs.'
         }
     }
 }
