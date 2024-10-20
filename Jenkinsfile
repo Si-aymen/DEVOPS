@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME' // Ensure this matches the Maven installation name in Jenkins
+        maven 'M2_HOME' // Ensure that 'M2_HOME' matches the Maven installation name in Jenkins
     }
 
     stages {
@@ -29,10 +29,10 @@ pipeline {
 
         stage('Nexus') {
             steps {
-                // Deploying artifacts to Nexus with direct credentials
+                // Deploying artifacts to Nexus
                 sh """
                     mvn deploy -DskipTests \
-                        -DaltDeploymentRepository=nexus::default::http://<NEXUS_URL>/repository/maven-releases/ \
+                        -DaltDeploymentRepository=nexus::default::http://192.168.33.10:8081/repository/maven-releases/ \
                         -Dnexus.username=admin \
                         -Dnexus.password='Omen15@6631'
                 """
